@@ -46,14 +46,16 @@ const createStore = () => {
         let token, expirationTime
         if (req) {
           if (!req.headers.cookie) return
-          token = req.headers.cookie
-            .split(';')
-            .find(c => c.trim().startsWith('token='))
-            .split('=')[1]
-          expirationTime = req.headers.cookie
-            .split(';')
-            .find(c => c.trim().startsWith('tokenExpiration='))
-            .split('=')[1]
+          if (req.headers.cookie.includes('token='))
+            token = req.headers.cookie
+              .split(';')
+              .find(c => c.trim().startsWith('token='))
+              .split('=')[1]
+          if (req.headers.cookie.includes('tokenExpiration='))
+            expirationTime = req.headers.cookie
+              .split(';')
+              .find(c => c.trim().startsWith('tokenExpiration='))
+              .split('=')[1]
         } else if (process.client) {
           token = localStorage.getItem('token')
           expirationTime = localStorage.getItem('tokenExpiration')
