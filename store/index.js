@@ -34,7 +34,7 @@ const createStore = () => {
               'tokenExpiration',
               Date.now() + Number.parseInt(result.payload.expiresIn)
             )
-            Cookie.set('jwt', result.idToken)
+            Cookie.set('token', result.idToken)
             Cookie.set(
               'tokenExpiration',
               Date.now() + Number.parseInt(result.payload.expiresIn)
@@ -48,7 +48,7 @@ const createStore = () => {
           if (!req.headers.cookie) return
           token = req.headers.cookie
             .split(';')
-            .find(c => c.trim().startsWith('jwt='))
+            .find(c => c.trim().startsWith('token='))
             .split('=')[1]
           expirationTime = req.headers.cookie
             .split(';')
@@ -61,7 +61,7 @@ const createStore = () => {
         if (!token || !expirationTime || Date.now() > +expirationTime) {
           vuexContext.dispatch('logout')
         } else {
-          vuexContext.commit('setToken', token)
+          vuexContext.commit('SET_TOKEN', token)
         }
       },
       logout(vuexContext) {
