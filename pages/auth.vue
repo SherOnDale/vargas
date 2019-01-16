@@ -14,8 +14,8 @@
         <input id="password" type="text" v-model="password">
       </label>
       <input type="submit" :value="isLogin? 'Login' : 'Sign Up'">
-      <button @click="isLogin = !isLogin">Switch to {{isLogin? 'Sign Up': 'Login'}}</button>
     </form>
+    <button @click="isLogin = !isLogin">Switch to {{isLogin? 'Sign Up': 'Login'}}</button>
   </div>
 </template>
 
