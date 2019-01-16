@@ -36,6 +36,7 @@ export default {
         .dispatch('authenticateUser', {
           email: this.email,
           password: this.password,
+          username: this.username,
           isLogin: this.isLogin
         })
         .then(() => this.$router.push('/'))
