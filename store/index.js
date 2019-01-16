@@ -34,7 +34,7 @@ const createStore = () => {
               'tokenExpiration',
               Date.now() + Number.parseInt(result.payload.expiresIn)
             )
-            Cookie.set('token', result.idToken)
+            Cookie.set('token', result.payload.token)
             Cookie.set(
               'tokenExpiration',
               Date.now() + Number.parseInt(result.payload.expiresIn)
