@@ -3,6 +3,17 @@ import Cookie from 'js-cookie'
 
 const createStore = () => {
   return new Vuex.Store({
+    state: {
+      token: null
+    },
+    mutations: {
+      SET_TOKEN(state, token) {
+        state.token = token
+      },
+      CLEAR_TOKEN(state) {
+        state.token = null
+      }
+    },
     actions: {
       authenticateUser(vuexContext, authData) {
         let authUrl = 'https://api.sherondale.me/joji/auth'
@@ -17,19 +28,19 @@ const createStore = () => {
         return this.$axios
           .$post(authUrl, authBody)
           .then(result => {
-            vuexContext.commit('setToken', result.idToken)
-            localStorage.setItem('token', result.idToken)
+            vuexContext.commit('SET_TOKEN', result.payload.token)
+            localStorage.setItem('token', result.payload.token)
             localStorage.setItem(
               'tokenExpiration',
-              Date.now() + Number.parseInt(result.expiresIn) * 1000
+              Date.now() + Number.parseInt(result.payload.expiresIn)
             )
             Cookie.set('jwt', result.idToken)
             Cookie.set(
               'tokenExpiration',
-              Date.now() + Number.parseInt(result.expiresIn) * 1000
+              Date.now() + Number.parseInt(result.payload.expiresIn)
             )
           })
-          .catch(error => console.log(error))
+          .catch(error => alert(error))
       },
       initAuth(vuexContext, req) {
         let token, expirationTime
