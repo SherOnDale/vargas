@@ -16,13 +16,13 @@ const createStore = () => {
     },
     actions: {
       authenticateUser(vuexContext, authData) {
-        let authUrl = 'https://api.sherondale.me/joji/auth'
+        let authUrl = '/auth'
         let authBody = {
           username: authData.username,
           password: authData.password
         }
         if (!authData.isLogin) {
-          authUrl = 'https://api.sherondale.me/joji/users'
+          authUrl = '/users'
           authBody.email = authData.email
         }
         return this.$axios
