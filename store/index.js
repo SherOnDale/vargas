@@ -73,6 +73,11 @@ const createStore = () => {
           localStorage.removeItem('tokenExpiration')
         }
       }
+    },
+    getters: {
+      isAuthenticated(state) {
+        return state.token !== null
+      }
     }
   })
 }
