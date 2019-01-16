@@ -1,18 +1,12 @@
 <template>
-  <div class="dashboard">
-    <button>Buy</button>
-    <button @click="onSend">Send</button>
+  <div class="dashboard">\
+    <nuxt-link to="/buy">Buy</nuxt-link>
+    <nuxt-link to="/send">Send</nuxt-link>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    onSend() {
-      console.log('send clicked')
-    }
-  }
-}
+export default {}
 </script>
 
 <style>
