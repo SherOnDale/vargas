@@ -10,7 +10,7 @@ export default {
   middleware: ['check-auth', 'auth'],
   methods: {
     onLogout() {
-      this.$store.dispatch('logout').then(() => this.$router.push('/'))
+      this.$store.dispatch('logout').then(() => this.$router.push('/auth'))
     }
   }
 }
