@@ -3,19 +3,19 @@
     <form @submit.prevent="onSubmit">
       <label v-if="!isLogin" for="email">
         Email Address
-        <input id="email" type="text" v-model="email">
+        <input id="email" v-model="email" type="text">
       </label>
       <label for="username">
         Username
-        <input id="username" type="text" v-model="username">
+        <input id="username" v-model="username" type="text">
       </label>
       <label for="password">
         Password
-        <input id="password" type="text" v-model="password">
+        <input id="password" v-model="password" type="text">
       </label>
-      <input type="submit" :value="isLogin? 'Login' : 'Sign Up'">
+      <input :value="isLogin? 'Login' : 'Sign Up'" type="submit">
     </form>
-    <button @click="isLogin = !isLogin">Switch to {{isLogin? 'Sign Up': 'Login'}}</button>
+    <button @click="isLogin = !isLogin">Switch to {{ isLogin? 'Sign Up': 'Login' }}</button>
   </div>
 </template>
 
