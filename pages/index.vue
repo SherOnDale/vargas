@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">\
+  <div class="dashboard">
     <nuxt-link to="/buy">Buy</nuxt-link>
     <nuxt-link to="/send">Send</nuxt-link>
   </div>
