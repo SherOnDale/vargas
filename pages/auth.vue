@@ -21,6 +21,7 @@
 
 <script>
 export default {
+  layout: 'auth',
   data() {
     return {
       isLogin: true,
