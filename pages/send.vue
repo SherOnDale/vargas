@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="onSubmit">
     <label for="address">
       Address
       <input id="address" type="text">
@@ -13,7 +13,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    onSubmit() {
+      alert('sending vargas')
+    }
+  }
+}
 </script>
 
 <style>
