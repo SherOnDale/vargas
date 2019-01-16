@@ -1,20 +1,8 @@
 <template>
   <div>
-    <button @click="onLogout">Logout</button>
     <nuxt/>
   </div>
 </template>
-
-<script>
-export default {
-  methods: {
-    onLogout() {
-      this.$store.dispatch('logout').then(() => this.$router.push('/'))
-    }
-  }
-}
-</script>
-
 
 <style>
 html {

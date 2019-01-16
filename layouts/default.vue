@@ -1,12 +1,18 @@
 <template>
   <div>
+    <button @click="onLogout">Logout</button>
     <nuxt/>
   </div>
 </template>
 
 <script>
 export default {
-  middleware: ['check-auth', 'auth']
+  middleware: ['check-auth', 'auth'],
+  methods: {
+    onLogout() {
+      this.$store.dispatch('logout').then(() => this.$router.push('/'))
+    }
+  }
 }
 </script>
 
