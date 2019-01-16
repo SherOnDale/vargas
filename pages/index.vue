@@ -1,9 +1,18 @@
 <template>
-  <div>test</div>
+  <div class="dashboard">
+    <button>Buy</button>
+    <button @click="onSend">Send</button>
+  </div>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    onSend() {
+      console.log('send clicked')
+    }
+  }
+}
 </script>
 
 <style>
