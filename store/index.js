@@ -97,6 +97,9 @@ const createStore = () => {
     getters: {
       isAuthenticated(state) {
         return state.token !== null
+      },
+      getUsername(state) {
+        return state.username
       }
     }
   })
