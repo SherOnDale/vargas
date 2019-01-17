@@ -42,7 +42,7 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    baseURL: 'https://api.sherondale.me/joji'
+    baseURL: process.env.BASE_URL || 'http://localhost:8080/joji'
     // See https://github.com/nuxt-community/axios-module#options
   },
 
