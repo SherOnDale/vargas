@@ -69,7 +69,7 @@ const createStore = () => {
         } else if (process.client) {
           token = localStorage.getItem('token')
           expirationTime = localStorage.getItem('tokenExpiration')
-          username = localStorage.getItem('cookie')
+          username = localStorage.getItem('username')
         }
         if (
           !token ||
