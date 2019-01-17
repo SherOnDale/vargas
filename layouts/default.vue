@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>Welcome, {{ username }}</p>
     <button @click="onLogout">Logout</button>
     <nuxt/>
   </div>
@@ -8,6 +9,11 @@
 <script>
 export default {
   middleware: ['check-auth', 'auth'],
+  data() {
+    return {
+      username: this.$state.getters.getUsername
+    }
+  },
   methods: {
     onLogout() {
       this.$store.dispatch('logout').then(() => this.$router.push('/auth'))
