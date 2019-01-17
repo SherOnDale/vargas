@@ -4,14 +4,17 @@ import Cookie from 'js-cookie'
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      token: null
+      token: null,
+      username: ''
     },
     mutations: {
-      SET_TOKEN(state, token) {
-        state.token = token
+      SET_STATE(state, payload) {
+        state.token = payload.token
+        state.username = payload.username
       },
-      CLEAR_TOKEN(state) {
+      CLEAR_STATE(state) {
         state.token = null
+        state.username = ''
       }
     },
     actions: {
@@ -28,22 +31,24 @@ const createStore = () => {
         return this.$axios
           .$post(authUrl, authBody)
           .then(result => {
-            vuexContext.commit('SET_TOKEN', result.payload.token)
+            vuexContext.commit('SET_STATE', result.payload)
             localStorage.setItem('token', result.payload.token)
             localStorage.setItem(
               'tokenExpiration',
               Date.now() + Number.parseInt(result.payload.expiresIn)
             )
+            localStorage.setItem('username', result.payload.username)
             Cookie.set('token', result.payload.token)
             Cookie.set(
               'tokenExpiration',
               Date.now() + Number.parseInt(result.payload.expiresIn)
             )
+            Cookie.set('username', result.payload.username)
           })
           .catch(error => alert(error))
       },
       initAuth(vuexContext, req) {
-        let token, expirationTime
+        let token, expirationTime, username
         if (req) {
           if (!req.headers.cookie) return
           if (req.headers.cookie.includes('token='))
@@ -56,23 +61,36 @@ const createStore = () => {
               .split(';')
               .find(c => c.trim().startsWith('tokenExpiration='))
               .split('=')[1]
+          if (req.headers.cookie.includes('username'))
+            username = req.headers.cookie
+              .split(';')
+              .find(c => c.trim().startsWith('username='))
+              .split('=')[1]
         } else if (process.client) {
           token = localStorage.getItem('token')
           expirationTime = localStorage.getItem('tokenExpiration')
+          username = localStorage.getItem('cookie')
         }
-        if (!token || !expirationTime || Date.now() > +expirationTime) {
+        if (
+          !token ||
+          !expirationTime ||
+          Date.now() > +expirationTime ||
+          !username
+        ) {
           vuexContext.dispatch('logout')
         } else {
-          vuexContext.commit('SET_TOKEN', token)
+          vuexContext.commit('SET_STATE', { token, username })
         }
       },
       logout(vuexContext) {
-        vuexContext.commit('CLEAR_TOKEN')
+        vuexContext.commit('CLEAR_STATE')
         Cookie.remove('token')
         Cookie.remove('tokenExpiration')
+        Cookie.remove('username')
         if (process.client) {
           localStorage.removeItem('token')
           localStorage.removeItem('tokenExpiration')
+          localStorage.removeItem('username')
         }
       }
     },
