@@ -11,7 +11,7 @@ export default {
   middleware: ['check-auth', 'auth'],
   data() {
     return {
-      username: this.$state.getters.getUsername
+      username: this.$store.getters.getUsername
     }
   },
   methods: {
